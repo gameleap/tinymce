@@ -31,6 +31,7 @@ const urls = Arr.map<PartialPluginUrl, PluginUrl>([
   { key: 'colorpicker', name: 'Color Picker' },
   { key: 'directionality', name: 'Directionality' },
   { key: 'emoticons', name: 'Emoticons' },
+  { key: 'assets', name: 'Assets' },
   { key: 'fullscreen', name: 'Full Screen' },
   { key: 'help', name: 'Help' },
   { key: 'image', name: 'Image' },

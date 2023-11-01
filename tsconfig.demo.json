@@ -24,6 +24,7 @@
       "tinymce/plugins/codesample/*": ["modules/tinymce/src/plugins/codesample/main/ts/*"],
       "tinymce/plugins/directionality/*": ["modules/tinymce/src/plugins/directionality/main/ts/*"],
       "tinymce/plugins/emoticons/*": ["modules/tinymce/src/plugins/emoticons/main/ts/*"],
+      "tinymce/plugins/assets/*": ["modules/tinymce/src/plugins/assets/main/ts/*"],
       "tinymce/plugins/fullscreen/*": ["modules/tinymce/src/plugins/fullscreen/main/ts/*"],
       "tinymce/plugins/help/*": ["modules/tinymce/src/plugins/help/main/ts/*"],
       "tinymce/plugins/hr/*": ["modules/tinymce/src/plugins/hr/main/ts/*"],

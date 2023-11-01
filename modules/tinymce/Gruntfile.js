@@ -12,7 +12,7 @@ let path = require('path');
 
 let plugins = [
   'accordion', 'advlist', 'anchor', 'autolink', 'autoresize', 'autosave', 'charmap', 'code', 'codesample',
-  'directionality', 'emoticons', 'help', 'fullscreen', 'image', 'importcss', 'insertdatetime',
+  'directionality', 'emoticons', 'assets', 'help', 'fullscreen', 'image', 'importcss', 'insertdatetime',
   'link', 'lists', 'media', 'nonbreaking', 'pagebreak', 'preview', 'save', 'searchreplace',
   'table', 'template', 'visualblocks', 'visualchars', 'wordcount', 'quickbars'
 ];
@@ -284,7 +284,7 @@ module.exports = function (grunt) {
       everything: () => gruntWebPack.all(plugins, themes, models),
       options: {
         devServer: {
-          port: grunt.option('webpack-port') !== undefined ? grunt.option('webpack-port') : 3000,
+          port: grunt.option('webpack-port') !== undefined ? grunt.option('webpack-port') : 3001,
           host: '0.0.0.0',
           allowedHosts: 'all',
           static: {

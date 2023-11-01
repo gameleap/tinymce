@@ -102,7 +102,7 @@ gulp.task('minifyCss', function() {
 gulp.task('monitor', function (done) {
   connect.server({
     root: './build',
-    port: 3000,
+    port: 3001,
     livereload: true
   }, function () {
     this.server.on('close', done);
