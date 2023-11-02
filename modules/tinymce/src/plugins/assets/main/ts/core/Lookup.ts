@@ -34,11 +34,14 @@ const assetsFrom = (
       const height = list[i].height ? `height="${list[i].height}px"` : "";
       const dataId = list[i].id ? `data-id="${list[i].id}"` : "";
       const dataSlug = list[i].slug ? `data-slug="${list[i].slug}"` : "";
+      const classes = list[i].classes
+        ? `class="${list[i].classes?.join(" ")}"`
+        : "";
 
       matches.push({
         text: list[i].name,
         type: "cardmenuitem",
-        value: `<img ${dataId} ${dataSlug} ${width} ${height} alt="${
+        value: `<img ${classes} ${dataId} ${dataSlug} ${width} ${height} alt="${
           list[i].alt || list[i].name
         }" src="${list[i].src}">`,
         icon: `<img ${width} ${height} alt="${
@@ -51,7 +54,11 @@ const assetsFrom = (
             type: "cardimage",
             src: list[i].src,
             alt: list[i].alt || list[i].name,
-            classes: ["asset-image", `category-${list[i].category}`],
+            classes: [
+              "asset-image",
+              `category-${list[i].category}`,
+              ...(list[i].classes || []),
+            ],
           },
         ],
       });

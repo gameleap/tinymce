@@ -16,6 +16,7 @@ export interface AssetEntry extends RawAssetEntry {
   readonly name: string;
   readonly slug: string;
   readonly category: string;
+  readonly classes?: string[];
   readonly alt?: string;
   readonly width?: number;
   readonly height?: number;
