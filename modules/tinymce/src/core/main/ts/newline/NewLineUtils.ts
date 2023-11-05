@@ -182,7 +182,7 @@ const createNewBlock = (
   const textInlineElements = schema.getTextInlineElements();
 
   let block: Element;
-  if (name || parentBlockName === 'TABLE' || parentBlockName === 'HR') {
+  if (name || parentBlockName === 'TABLE' || parentBlockName === 'HR' || parentBlockName === 'DIV') {
     block = dom.create(name || newBlockName);
   } else {
     block = parentBlock.cloneNode(false) as Element;
@@ -224,12 +224,9 @@ const createNewBlock = (
 };
 
 export {
-  moveToCaretPosition,
-  getEditableRoot,
+  createNewBlock, emptyBlock, getEditableRoot,
   getParentBlock,
   getParentBlockName,
-  isListItemParentBlock,
-  createNewBlock,
-  setForcedBlockAttrs,
-  emptyBlock
+  isListItemParentBlock, moveToCaretPosition, setForcedBlockAttrs
 };
+

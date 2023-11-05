@@ -56,7 +56,6 @@ const assetsFrom = (
             alt: list[i].alt || list[i].name,
             classes: [
               "asset-image",
-              `category-${list[i].category}`,
               ...(list[i].classes || []),
             ],
           },
