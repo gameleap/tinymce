@@ -5,10 +5,7 @@ import Editor from "tinymce/core/api/Editor";
 import { Dialog } from "tinymce/core/api/ui/Ui";
 
 import { insertAsset } from "../core/Actions";
-import {
-  ALL_CATEGORY,
-  AssetsDatabase
-} from "../core/AssetsDatabase";
+import { ALL_CATEGORY, AssetsDatabase } from "../core/AssetsDatabase";
 import { assetsFrom } from "../core/Lookup";
 
 declare let tinymce: TinyMCE;
@@ -28,10 +25,11 @@ interface DialogData {
 const patternName = "pattern";
 
 const open = (editor: Editor, database: AssetsDatabase): void => {
-  const initialState: DialogData = {
+  let state: DialogData = {
     pattern: "",
     results: assetsFrom(database.listAll(), "", Optional.some(300)),
   };
+  let listenerTimeout: any;
 
   const currentTab = Cell(ALL_CATEGORY);
 
@@ -80,23 +78,32 @@ const open = (editor: Editor, database: AssetsDatabase): void => {
       title: "Assets",
       size: "large",
       body,
-      initialData: initialState,
+      initialData: state,
       onTabChange: (dialogApi, details) => {
         currentTab.set(details.newTabName);
         updateFilter.throttle(dialogApi);
       },
+      onClose: () => clearTimeout(listenerTimeout),
       onChange: updateFilter.throttle,
       onAction: (dialogApi, actionData) => {
         if (actionData.name === "results") {
           insertAsset(editor, actionData.value);
           dialogApi.close();
         }
+        if (actionData.name === "newAsset") {
+          editor.fire("newAssetClicked");
+        }
       },
       buttons: [
         {
+          type: "custom",
+          name: "newAsset",
+          text: "New Asset",
+          primary: true,
+        },
+        {
           type: "cancel",
           text: "Close",
-          primary: true,
         },
       ],
     };
@@ -158,6 +165,29 @@ const open = (editor: Editor, database: AssetsDatabase): void => {
         dialogApi.unblock();
       });
   }
+  let previousData = database.listAll();
+
+  function listenForDataChanges() {
+    const currentData = database.listAll();
+
+    if (JSON.stringify(currentData) !== JSON.stringify(previousData)) {
+      previousData = currentData;
+      const data = dialogApi.getData();
+
+      dialogApi.redial({
+        ...getInitialState(),
+        initialData: {
+          pattern: data.pattern,
+          results: assetsFrom(currentData, data.pattern, Optional.some(300)),
+        },
+      });
+    }
+
+    // Check for data changes every second
+    listenerTimeout = setTimeout(listenForDataChanges, 500);
+  }
+
+  listenForDataChanges();
 };
 
 export { open };

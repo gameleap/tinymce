@@ -28,6 +28,6 @@ export default (): void => {
     Autocompletion.init(editor, database);
     Filters.setup(editor);
 
-    return Api.get(editor);
+    return Api.get(editor, database);
   });
 };

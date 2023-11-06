@@ -99,7 +99,10 @@ const initDatabase = (
       .getOr([]);
   };
 
-  const listAll = (): AssetEntry[] => all.get().getOr([]);
+  const listAll = (): AssetEntry[] => {
+    const values = all.get().getOr([]);
+    return values
+  };
 
   const listCategories = (): string[] =>
     // TODO: Category key order should be adjusted to match the standard
