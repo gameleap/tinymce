@@ -1,15 +1,19 @@
 import { TinyMCE } from "tinymce/core/api/PublicApi";
 
 declare let tinymce: TinyMCE;
-
-tinymce.init({
+let config: any = {
   selector: "textarea.tinymce",
   plugins: "assets emoticons image code",
   toolbar: "assets emoticons image code",
   extended_valid_elements:
     "img[longdesc|usemap|src|border|alt=|title|hspace|vspace|width|height|align|data-path|style|class|loading=lazy|decoding=async]",
   height: 600,
-  assets_append: [
+};
+
+tinymce.init(config);
+
+setTimeout(() => {
+  tinymce?.EditorManager.activeEditor?.plugins.assets.loadAssets([
     {
       key: "ana",
       name: "Ana",
@@ -26,10 +30,10 @@ tinymce.init({
       category: "Items",
       src: "https://cdn.gameleap.com/images/articles/art_gwgIj5AT1y/art-img_xgoFsYH3c/1x.webp",
       width: 50,
-      height: 50
+      height: 50,
     },
-  ],
-});
+  ]);
+}, 3000);
 
 export { };
 

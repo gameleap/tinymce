@@ -28,6 +28,7 @@ export interface AssetsDatabase {
   readonly waitForLoad: () => Promise<boolean>;
   readonly listAll: () => AssetEntry[];
   readonly listCategories: () => string[];
+  readonly loadAssets: (assets?: AssetEntry[]) => void;
 }
 
 const categoryNameMap = {
@@ -85,20 +86,7 @@ const initDatabase = (
   };
 
   editor.on("init", () => {
-    const userAssets = getUserDefinedAssets(editor);
-    processAssets(userAssets);
-
-    // Resource.load(databaseId, databaseUrl).then(
-    //   (assets) => {
-
-    //   },
-    //   (err) => {
-    //     // eslint-disable-next-line no-console
-    //     console.log(`Failed to load assets: ${err}`);
-    //     categories.set({});
-    //     all.set([]);
-    //   }
-    // );
+    loadAssets();
   });
 
   const listCategory = (category: string): AssetEntry[] => {
@@ -143,12 +131,30 @@ const initDatabase = (
 
   const hasLoaded = (): boolean => categories.isSet() && all.isSet();
 
+  const loadAssets = (assets: AssetEntry[] = []) => {
+    const userAssets = getUserDefinedAssets(editor);
+    processAssets([...userAssets, ...assets]);
+
+    // Resource.load(databaseId, databaseUrl).then(
+    //   (assets) => {
+
+    //   },
+    //   (err) => {
+    //     // eslint-disable-next-line no-console
+    //     console.log(`Failed to load assets: ${err}`);
+    //     categories.set({});
+    //     all.set([]);
+    //   }
+    // );
+  };
+
   return {
     listCategories,
     hasLoaded,
     waitForLoad,
     listAll,
     listCategory,
+    loadAssets,
   };
 };
 
